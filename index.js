@@ -22,6 +22,16 @@ async function run() {
   //     Array.from(document.querySelectorAll("a"), (el) => el.href)
   //   );
 
+  const courses = await page.evaluate(() =>
+    Array.from(document.querySelectorAll("#courses .card"), (el) => ({
+      title: el.querySelector(".card-body h3").innerText,
+      level: el.querySelector(".card-body .level").innerText,
+      url: el.querySelector(".card-footer a").href,
+      promo: el.querySelector(".card-footer .promo-code .promo").innerText,
+    }))
+  );
+  console.log(courses);
+
   await browser.close();
 }
 run();
