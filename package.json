@@ -1,6 +1,10 @@
 {
   "name": "puppeteer-crash-course",
   "packageManager": "yarn@3.3.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index"
+  },
   "dependencies": {
     "puppeteer": "^19.4.0"
   }
