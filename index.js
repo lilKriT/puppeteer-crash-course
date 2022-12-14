@@ -22,14 +22,25 @@ async function run() {
   //     Array.from(document.querySelectorAll("a"), (el) => el.href)
   //   );
 
-  const courses = await page.evaluate(() =>
-    Array.from(document.querySelectorAll("#courses .card"), (el) => ({
+  //   const courses = await page.evaluate(() =>
+  //     Array.from(document.querySelectorAll("#courses .card"), (el) => ({
+  //       title: el.querySelector(".card-body h3").innerText,
+  //       level: el.querySelector(".card-body .level").innerText,
+  //       url: el.querySelector(".card-footer a").href,
+  //       promo: el.querySelector(".card-footer .promo-code .promo").innerText,
+  //     }))
+  //   );
+
+  //   This is just another syntax to write the same code.
+  const courses = await page.$$eval("#courses .card", (elements) =>
+    elements.map((el) => ({
       title: el.querySelector(".card-body h3").innerText,
       level: el.querySelector(".card-body .level").innerText,
       url: el.querySelector(".card-footer a").href,
       promo: el.querySelector(".card-footer .promo-code .promo").innerText,
     }))
   );
+
   console.log(courses);
 
   await browser.close();
