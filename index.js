@@ -1,9 +1,12 @@
 const puppeteer = require("puppeteer");
+const fs = require("fs");
+
+const url = "https://traversymedia.com";
 
 async function run() {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
-  await page.goto("https://traversymedia.com");
+  await page.goto(url);
 
   //   await page.screenshot({ path: "example.png", fullPage: true });
   //   await page.pdf({ path: "example.pdf", format: "A4" });
@@ -41,7 +44,12 @@ async function run() {
     }))
   );
 
-  console.log(courses);
+  //   console.log(courses);
+  // save to json
+  fs.writeFile("courses.json", JSON.stringify(courses), (err) => {
+    if (err) throw err;
+    console.log("File saved");
+  });
 
   await browser.close();
 }
